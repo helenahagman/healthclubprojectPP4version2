@@ -266,42 +266,42 @@ def personal_trainer(request):
         'header': 'Personal Trainer',
         'subheading': 'A session with a Personal Trainer can make the whole difference.',
     }
-    return render(request, 'personaltrainer.html', context)
+    return render(request, 'personal_trainer_template.html', context)
 
 def members(request):
     context = {
         'header': 'Members',
         'subheading': 'As a member you get access to all the best offers and news!',
     }
-    return render(request, 'member.html', context)
+    return render(request, 'member_template.html', context)
 
 def login(request):
     context = {
         'header': 'Stay active',
         'subheading': 'Daily exercise helps you to stay strong and healthy.',
     }
-    return render(request, 'login.html', context)
+    return render(request, 'login_template.html', context)
 
 def signup(request):
     context = {
         'header': 'Welcome',
         'subheading': 'Make smart choices and live a healthier life.',
     }
-    return render(request, 'signup.html', context)
+    return render(request, 'signup_template.html', context)
 
 def contact(request):
     context = {
         'header': 'Contact us',
         'subheading': 'We are here for you, fill in the form and let us know whats on your mind',
     }
-    return render(request, 'contact.html', context)
+    return render(request, 'contact_template.html', context)
 
 def book(request):
     context = {
         'header': 'Book PT session',
         'subheading': 'A session with an expert will get you started, no matter what your goal is! ',
     }
-    return render(request, 'book.html', context)
+    return render(request, 'book_template.html', context)
 
 def membersonly(request):
     if request.method == 'POST':
@@ -313,5 +313,5 @@ def membersonly(request):
             return redirect('membersonly')
     else:
         form = MemberCommentForm()
-    return render(request, 'membersonly.html', {'form': form})
+    return render(request, 'membersonly_template.html', {'form': form})
     

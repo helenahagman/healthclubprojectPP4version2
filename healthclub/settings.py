@@ -41,7 +41,8 @@ ALLOWED_HOSTS = [
     '8000-helenahagma-healthclubp-xd16582m4yh.ws-eu108.gitpod.io',
     'health-club-project-pp4.herokuapp.com',
     'health-club-project-pp4-aec30baa0c93.herokuapp.com',
-    'localhost'
+    'localhost',
+    '8000-helenahagma-healthclubp-8my0glwkwg1.ws-eu108.gitpod.io'
 ]
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
