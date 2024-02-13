@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- Main Content-->
+<section>
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-lg-6">
+                <div class="p-5"><img class="img-fluid"
+                        src='https://res.cloudinary.com/dbjnqkn07/image/upload/v1692358156/healthclub-pp4/pexels-victor-freitas-703014_mwhg9x.jpg'
+                        alt="prepare">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="p-5">
+                    <h3 class="display-4">Coming soon!</h3>
+                    <h5 class="post-subtitle">We are delighted to share the great news that in January of 2024 
+                        we will release the spots for our popular, Out Door Training Camp. As a member you will 
+                        have first dibs so keep you eye out for the release date!
+                    </h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!--Postcard layout by MDBootstrap-->
+<main class="my-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 mb-4">
+                <div class="card">
+                    <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                        <img src="https://res.cloudinary.com/dbjnqkn07/image/upload/v1692358156/healthclub-pp4/pexels-victor-freitas-841130_ggalv1.jpg"
+                            alt="Squat" class="img-fluid">
+                            <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Special member offer</h5>
+                        <p class="card-text">
+                            We value our members and as a member you always get a little bit more.
+                            For every 5 booked sessions with a personal trainer we give you 30 min
+                            extra. How great is that?
+                        </p>
+                        <a href="{% url 'booking' %}" class="btn btn-primary">Book</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 mb-4">
+                <div class="card">
+                    <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                        <img src="https://res.cloudinary.com/dbjnqkn07/image/upload/v1692358155/healthclub-pp4/pexels-victor-freitas-703016_p5hqbj.jpg"
+                            alt="News" class="img-fluid">
+                            <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">News</h5>
+                        <p class="card-text">
+                            The new coffe shop around the corner will offer you a free topping to 
+                            the beverage of your choice. Just mention The Personal Trainer Project
+                            when you place your order.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container my-5">
+        <div class="card-body">
+            <h5 class="card-title">Share your journey</h5>
+            <p class="card-text">
+                You are not alone, share your journey with fellow members.
+            </p>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+            {% for comment in comments %}
+            <div class="comment">
+                <p>{{ comment.user.username }} said: {{ comment.comment }}</p>
+                {% if comment.photo %}
+                    <img src="{{ comment.photo.url }}" alt="Comment photo" style="width: 100px; height: auto;">
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</main>
+
+{% endblock %}

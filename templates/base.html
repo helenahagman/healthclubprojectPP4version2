@@ -1,0 +1,174 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>The Personal Trainer Project</title>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="Health club/gym to help you get in shape, loose weight or build muscles">
+    <meta name="keywords" content="Health Club, personaltrainer, gym, loose weight, gain muscles, get in shape">
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180"
+        href="https://res.cloudinary.com/dbjnqkn07/image/upload/v1699430277/healthclub-pp4/apple-touch-icon_bkj8i8.png">
+    <link rel="icon" type="image/png" sizes="32x32"
+        href="https://res.cloudinary.com/dbjnqkn07/image/upload/v1699430265/healthclub-pp4/icon-32x32_laoxdb.png">
+    <link rel="icon" type="image/png" sizes="16x16"
+        href="https://res.cloudinary.com/dbjnqkn07/image/upload/v1699430257/healthclub-pp4/icon-16x16_xgzxnm.png">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous">
+    </script>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js">
+    </script>
+    <script>
+        (function(){
+            emailjs.init("RO0elmR_iHiWZiyEO");
+            emailjs.send('service_b8gz1av', 'template_8j0ugds', templateParams)
+        .then(function(response) {
+            console.log('SUCCESS!', response.status, response.text);
+        }, function(error) {
+            console.log('FAILED...', error);
+        });
+        })();
+    </script>
+    <link href='https://unpkg.com/fullcalendar@5/main.min.css' rel='stylesheet' />
+    <script src='https://unpkg.com/fullcalendar@5/main.min.js'></script>
+
+</head>
+
+<body class="d-flex flex-column h-100 main-bg">
+
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav" style="z-index: 9999;">
+        <div class="container px-4 px-lg-5 navbar-collapse">
+            <a class="navbar-brand w-100" href="{% url 'index' %}">
+                The Health Club Project
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto py-4 py-lg-0 ml-lg-0" id="menu">
+                    <li class="nav-item {% if active_page == 'about' %}active{% endif %}">
+                        <a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'index' %}">
+                            Home
+                        </a>
+                    </li>
+                    <li class="nav-item {% if active_page == 'trainer' %}active{% endif %}">
+                        <a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'personaltrainer' %}">
+                            Personal Trainer
+                        </a>
+                    </li>
+                    <li class="nav-item {% if active_page == 'members' %}active{% endif %}">
+                        <a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'member' %}">
+                            Members
+                        </a>
+                    </li>
+                    
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'profile_view' %}">
+                            Profile
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'membersonly' %}">
+                            Members Only
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'logout' %}">
+                            Log out
+                        </a>
+                    </li>
+
+                    {% else %}
+                    <li class="nav-item {% if active_page == 'login' %}active{% endif %}">
+                        <a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'login' %}">
+                            Log in
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header-->
+    <header class="masthead">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <div class="site-heading">
+                        <h1>{{ header|default:"The Health Club Project" }}</h1>
+                        <span class="subheading">{{ subheading|default:"The Health Club that wants you to be the best that you can be!" }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- Main Content-->
+    <div class="container">
+        {% block content%}
+        {% endblock %}
+    </div>
+
+    <hr>
+
+    <!-- Footer-->
+    <footer class="footer mt-auto py-3 dark-bg" style="background-color: rgb(124, 130, 133);">
+        <p class="m-0 text-center text-white">
+            <a href="https://www.facebook.com/" target="_blank">
+                <i class="fab fa-facebook-square ms-3"></i>
+            </a>
+            <a href="https://www.instagram.com/" target="_blank">
+                <i class="fab fa-instagram-square ms-3"></i>
+            </a>
+        </p>
+        <p class="m-0 text-center text-white fst-italic">
+            Copyright &copy; The Health Club Project. <br>
+            Website only intended for educational purposes,
+            Code Institute Project #4
+        </p>
+    </footer>
+
+    <!-- Bootstrap core JS-->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+        crossorigin="anonymous"></script>
+
+    <!-- Core theme JS-->
+    <script src="{% static 'js/clean-blog.min.js' %}"></script>
+    <!-- font awesome script -->
+    <script src="https://kit.fontawesome.com/c7dbda0798.js" crossorigin="anonymous"></script>
+
+    <!-- Include the function.js file -->
+    <script src="{% static 'js/function.js' %}"></script>
+
+</body>
+
+</html>
+
+   

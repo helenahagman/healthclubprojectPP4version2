@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Booking" %}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 mb-4">
+            <div class="card">
+                <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                    <img src="https://res.cloudinary.com/dbjnqkn07/image/upload/v1699354020/healthclub-pp4/pexels-bich-tran-669986_1_hwbku7.jpg"
+                        alt="Book" class="img-fluid" />
+                    <a>
+                        <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                    </a>
+                </div>
+                <div class="card-body">
+                    <h3>{% trans 'Booking' %}</h3>
+                    <form id="bookingForm" class="booking" method="POST" action="{% url 'booking' %}">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        
+                        <!-- Submit button -->
+                        <div class="text-center">
+                            <button id="sendButton" type="submit" class="btn btn-primary" style="width: 30%">
+                                Book Session
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

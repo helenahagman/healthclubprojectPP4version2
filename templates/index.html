@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- Main Content-->
+<section>
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-lg-6">
+                <div class="p-5">
+                    <img class="img-fluid"
+                        src='https://res.cloudinary.com/dbjnqkn07/image/upload/v1692358156/healthclub-pp4/pexels-victor-freitas-703014_mwhg9x.jpg'
+                        alt="prepare">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="p-5">
+                    <h3 class="display-4">Together!</h3>
+                    <h5 class="post-subtitle">We want You to be the very best version of Your self and together we can
+                        make it happen.
+                        We will help you acheive the goals that you want to reach. Your goal will be our goal and we
+                        will be ther every step of the way.
+                        Book your Personal Trainer session today and get started on your journey!</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!--Postcard layout by MDBootstrap-->
+<main class="my-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 mb-4">
+                <div class="card">
+                    <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                        <img src="https://res.cloudinary.com/dbjnqkn07/image/upload/v1692358156/healthclub-pp4/pexels-victor-freitas-841130_ggalv1.jpg"
+                            alt="Squat" class="img-fluid">
+                        <a>
+                            <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Personal Trainer</h5>
+                        <p class="card-text">
+                            Book sessions with a personal trainer dedicated to helping you reach your goals.
+                            Or get in contact for any queries.
+                        </p>
+                        <a href="{% url 'personaltrainer' %}" class="btn btn-primary">Read more</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 mb-4">
+                <div class="card">
+                    <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                        <img src="https://res.cloudinary.com/dbjnqkn07/image/upload/v1692358155/healthclub-pp4/pexels-victor-freitas-703016_p5hqbj.jpg"
+                            alt="Talk" class="img-fluid">
+                        <a>
+                            <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Members</h5>
+                        <p class="card-text">
+                            Become a member today to receive the lates news, offers and much more.
+                        </p>
+                        <a href="{% url 'login' %}" class="btn btn-primary">Log in</a>
+                        <a href="{% url 'account_signup' %}" class="btn btn-primary">Register</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}
