@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Log in" %}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 mb-4">
+            <div class="card">
+                <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                    <img src="https://res.cloudinary.com/dbjnqkn07/image/upload/v1699354020/healthclub-pp4/pexels-bich-tran-669986_1_hwbku7.jpg"
+                        alt="Prepare" class="img-fluid">
+                    <a>
+                        <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                    </a>
+                </div>
+                <div class="card-body">
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                    <h3>{% trans "Login" %}</h3>
+                    <h5>{% blocktrans %} Welcome back! </h5>
+                    {% endblocktrans %}
+                    <p>Want to become a member? 
+                        <a class="link" href="{% url 'account_signup' %}">Register</a>
+                    </p>
+                    <form class="login" method="POST" action="{% url 'account_login' %}">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button id="signInButton" type="submit" class="btn btn-primary" style="width: 30%">
+                            Log In
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -7,6 +7,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.views import LoginView as DefaultLoginView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect, get_object_or_404 
@@ -134,10 +135,6 @@ class EditProfileView(LoginRequiredMixin, View):
         return render(request, self.template_name, {'form': form})
 
 
-# class CustomSignupForm(SignupForm):
-#     phone_number = forms.CharField(max_length=15)
-#     first_name = forms.CharField(max_length=30)
-#     last_name = forms.CharField(max_length=30)
 
 def signup(request):
     if request.method == 'POST':
@@ -151,25 +148,30 @@ def signup(request):
     return render(request, 'signup.html', {'form': form})
 
 
-class CustomSignupView(SignupView):
-    template_name = 'account/signup.html'
+# class CustomSignupView(SignupView):
+#     template_name = 'account/signup.html'
+
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context['header'] = 'Register now'
+#         context['subheading'] = 'Make smart choices and live a healthier life.'
+#         return context
+        
+
+
+class LoginView(DefaultLoginView):
+    template_name = 'account/login.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['header'] = 'Register now'
-        context['subheading'] = 'Make smart choices and live a healthier life.'
+        context['header'] = 'Log in'
+        context['subheading'] = 'Doing something is better than nothing'
         return context
-        
-def register(request):
-    if request.method == 'POST':
-        form = CustomSignupForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('membersonly')
-    else:
-        form = CustomSignupForm()
 
-    return render(request, 'signup.html', {'form': form})
+
+def custom_logout(request):
+    logout(request)
+    return redirect('index')
 
 
 @csrf_protect
@@ -247,8 +249,6 @@ def book_session(request, session_id):
         messages.error(request, 'This session is already booked')
         return render(request, 'session_already_booked.html')
 
-def sessions_calendar(request):
-    return render(request, 'sessions_calendar.html')
 
 def sessions_api(request):
     sessions = Session.objects.filter(booked=False)
@@ -266,42 +266,42 @@ def personal_trainer(request):
         'header': 'Personal Trainer',
         'subheading': 'A session with a Personal Trainer can make the whole difference.',
     }
-    return render(request, 'personal_trainer_template.html', context)
+    return render(request, 'personaltrainer.html', context)
 
 def members(request):
     context = {
         'header': 'Members',
         'subheading': 'As a member you get access to all the best offers and news!',
     }
-    return render(request, 'member_template.html', context)
+    return render(request, 'member.html', context)
 
 def login(request):
     context = {
         'header': 'Stay active',
         'subheading': 'Daily exercise helps you to stay strong and healthy.',
     }
-    return render(request, 'login_template.html', context)
+    return render(request, 'login.html', context)
 
 def signup(request):
     context = {
         'header': 'Welcome',
         'subheading': 'Make smart choices and live a healthier life.',
     }
-    return render(request, 'signup_template.html', context)
+    return render(request, 'signup.html', context)
 
 def contact(request):
     context = {
         'header': 'Contact us',
         'subheading': 'We are here for you, fill in the form and let us know whats on your mind',
     }
-    return render(request, 'contact_template.html', context)
+    return render(request, 'contact.html', context)
 
 def book(request):
     context = {
         'header': 'Book PT session',
         'subheading': 'A session with an expert will get you started, no matter what your goal is! ',
     }
-    return render(request, 'book_template.html', context)
+    return render(request, 'book.html', context)
 
 def membersonly(request):
     if request.method == 'POST':
@@ -313,5 +313,5 @@ def membersonly(request):
             return redirect('membersonly')
     else:
         form = MemberCommentForm()
-    return render(request, 'membersonly_template.html', {'form': form})
+    return render(request, 'membersonly.html', {'form': form})
     

@@ -10,7 +10,14 @@ STATUS = ((0, "Draft"), (1, "Published"))
 def get_default_session():
     session = Session.objects.first()
     if not session:
-        pass
+        session = Session.objects.create(
+            trainer_name="Default Trainer",
+            session_type="General",
+            date=timezone.now().date(),
+            start_time=timezone.now().time(),
+            end_time=(timezone.now() + timedelta(hours=1)).time(),
+            booked=False
+        )
     return session
 
 
