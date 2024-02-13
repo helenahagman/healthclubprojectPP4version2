@@ -1,11 +1,6 @@
 from django.contrib import admin
-from .models import Profile, Contact, Session, Booking
+from .models import Profile, Contact, Session, Booking, MemberComment
 from django_summernote.admin import SummernoteModelAdmin
-
-
-admin.site.register(Profile)
-admin.site.register(Session)
-admin.site.register(MemberComment)
 
 
 @admin.register(Booking)
@@ -41,3 +36,14 @@ class SessionAdmin(admin.ModelAdmin):
     list_display = ('trainer_name', 'session_type', 'date', 'start_time', 'end_time', 'booked')
     list_filter = ('date', 'trainer_name')
     search_fields = ('trainer_name', 'session_type')
+
+@admin.register(MemberComment)
+class MemberCommentAdmin(admin.ModelAdmin):
+    list_display = ('user', 'comment', 'created_at', 'photo')
+    list_filter = ('created_at', 'user')
+    search_fields = ('user__username', 'comment')
+
+    def get_readonly_fields(self, request, obj=None):
+        if obj: 
+            return 'user', 'created_at', 'photo' 
+        return ()
